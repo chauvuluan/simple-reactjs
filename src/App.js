@@ -4,6 +4,7 @@ import Home from "./screens/Home";
 import CreateProduct from "./screens/CreateProduct";
 import Login from "./screens/Login";
 import { useDispatch, useSelector } from "react-redux";
+import CreateCategory from "./screens/CreateCategory";
 
 function Header() {
   return (
@@ -80,6 +81,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/create" element={<CreateProduct />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/create-category" element={<CreateCategory/>} />
           </Routes>
         </main>
         <Footer />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function CreateProduct() {
@@ -9,7 +9,7 @@ function CreateProduct() {
     categoryId: '',
     image:''
   });
-
+  const [categories, setCategories] = useState([]);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -18,6 +18,25 @@ function CreateProduct() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  // ✅ Fetch danh sách category
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('http://localhost:8081/category', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        setCategories(data);
+      } catch (err) {
+        console.error('Failed to load categories', err);
+      }
+    };
+
+    fetchCategories();
+  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,7 +104,7 @@ function CreateProduct() {
           className="w-full border p-2 rounded"
           required
         />
-        <input
+        {/* <input
           type="number"
           name="categoryId"
           placeholder="Category ID"
@@ -93,7 +112,23 @@ function CreateProduct() {
           onChange={handleChange}
           className="w-full border p-2 rounded"
           required
-        />
+        /> */}
+
+         {/* ✅ Dropdown category */}
+         <select
+          name="categoryId"
+          value={form.categoryId}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        >
+          <option value="">-- Select Category --</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           name="image"

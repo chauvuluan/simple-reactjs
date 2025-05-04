@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../store/productSlice';
 import { Link } from 'react-router-dom'; // 👈 Thêm dòng này
@@ -6,22 +6,46 @@ import { Link } from 'react-router-dom'; // 👈 Thêm dòng này
 function Home() {
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.product);
-
+  const [showMenu, setShowMenu] = useState(false);
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold">Product List</h1>
+     <div className="flex items-center justify-between mb-4">
+  <h1 className="text-2xl font-semibold">Product List</h1>
+
+  {/* Dropdown menu */}
+  <div className="relative inline-block text-left">
+    <button
+      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      onClick={() => setShowMenu((prev) => !prev)}
+    >
+      + Create
+    </button>
+
+    {showMenu && (
+      <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-md z-10">
+        <Link
+          to="/create-category"
+          className="block px-4 py-2 hover:bg-gray-100"
+          onClick={() => setShowMenu(false)}
+        >
+          Create Category
+        </Link>
         <Link
           to="/create"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="block px-4 py-2 hover:bg-gray-100"
+          onClick={() => setShowMenu(false)}
         >
-          + Create Product
+          Create Product
         </Link>
       </div>
+    )}
+  </div>
+</div>
+
 
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-600">{error}</p>}
