@@ -5,6 +5,9 @@ import CreateProduct from "./screens/CreateProduct";
 import Login from "./screens/Login";
 import { useDispatch, useSelector } from "react-redux";
 import CreateCategory from "./screens/CreateCategory";
+import { logout } from './store/authSlice';
+import { fetchProducts } from '../src/store/productSlice';
+
 
 function Header() {
   return (
@@ -17,6 +20,11 @@ function Header() {
 function Navbar() {
   const { accessToken } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
+const handleLogout = () => {
+  dispatch(logout());
+  dispatch(fetchProducts());
+  
+ };
   return (
     <nav className="bg-gray-100 shadow p-4 flex space-x-4">
       <Link to="/" className="text-gray-700 hover:text-blue-600">Home</Link>
@@ -24,7 +32,7 @@ const dispatch = useDispatch();
       <Link to="/services" className="text-gray-700 hover:text-blue-600">Services</Link>
       <Link to="/contact" className="text-gray-700 hover:text-blue-600">Contact</Link>
       {accessToken ? (
-        <button onClick={() => dispatch(logout())}>Logout</button>
+        <button onClick={()=>handleLogout()}>Logout</button>
       ) : (
         <Link to="/login">Login</Link>
       )}
