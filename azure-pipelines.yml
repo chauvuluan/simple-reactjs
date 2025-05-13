@@ -1,18 +1,18 @@
-trigger:
-- main
+trigger: none  # Chạy thủ công
+
+parameters:
+- name: batFileName
+  type: string
+  default: hello1.bat  # Tên mặc định
 
 pool:
-  name: Default  # Self-hosted Windows agent pool
+  name: Default  # Self-hosted Windows agent
 
 jobs:
-- job: RunHelloBat
-  displayName: 'Run D:\\hello.bat using cmd on local agent'
+- job: RunBatFile
+  displayName: 'Run .BAT file by filename input'
   steps:
   - script: |
-      cmd /c "D:\hello.bat"
-    displayName: 'Run BAT from D drive using cmd'
-
-  - script: |
-      echo $(Build.SourcesDirectory)
-      echo $(Build.ArtifactStagingDirectory)
-    displayName: 'Show working directories'
+      echo Running file: D:\${{ parameters.batFileName }}
+      cmd /c "D:\${{ parameters.batFileName }}"
+    displayName: 'Run .bat file from D:\'
