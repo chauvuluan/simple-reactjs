@@ -1,13 +1,8 @@
-# Node.js with React
-# Build a Node.js project that uses React.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - main
 
 pool:
-  name: Default
+  name: Default  # Self-hosted Windows agent pool
 
 jobs:
 - job: RunHelloBat
@@ -15,7 +10,5 @@ jobs:
   steps:
   - script: |
       echo Running D:\hello.bat...
-      script: start /wait "" "D:\hello.bat"
-    displayName: 'Run BAT from C drive'
-
-
+      start /wait "" "D:\hello.bat"
+    displayName: 'Run BAT from D drive'
