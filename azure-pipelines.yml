@@ -10,14 +10,21 @@ pool:
 
 jobs:
 - job: RunBatFileWithParam
+  displayName: 'Run hello.bat and handle result'
   steps:
   - script: |
-      echo Running hello.bat with output file: ${{ parameters.outputFileName }}
-      cd $(Build.SourcesDirectory)
-      cmd /c "D:\hello.bat ${{ parameters.outputFileName }}"
-    displayName: 'Run hello.bat with output file parameter'
+      echo ============================================
+      echo [INFO] Running hello.bat with output file: ${{ parameters.outputFileName }}
+      echo ============================================
 
-  - script: |
-      echo Copying output file to D drive...
-      copy "$(Build.SourcesDirectory)\${{ parameters.outputFileName }}" "D:\${{ parameters.outputFileName }}"
-    displayName: 'Copy output file to D:\'
+      rem Gọi file .bat và truyền tham số
+      call D:\hello.bat ${{ parameters.outputFileName }}
+
+      rem Kiểm tra mã lỗi trả về
+      if errorlevel 1 (
+          echo ##[error] hello.bat failed with exit code %errorlevel%
+          exit /b %errorlevel%
+      ) else (
+          echo ##[section]hello.bat completed successfully.
+      )
+    displayName: 'Execute hello.bat with parameter and check result'
