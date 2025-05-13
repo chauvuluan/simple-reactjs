@@ -11,11 +11,11 @@ pool:
 
 jobs:
 - job: RunHelloBat
-  displayName: 'Run C:\\hello.bat on local agent'
+  displayName: 'Run D:\\hello.bat on local agent'
   steps:
   - script: |
-      echo Running C:\hello.bat...
-      call C:\hello.bat
+      echo Running D:\hello.bat...
+      call D:\hello.bat
     displayName: 'Run BAT from C drive'
 
 
