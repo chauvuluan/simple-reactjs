@@ -11,3 +11,8 @@ jobs:
   - script: |
       cmd /c "D:\hello.bat"
     displayName: 'Run BAT from D drive using cmd'
+
+  - script: |
+      echo $(Build.SourcesDirectory)
+      echo $(Build.ArtifactStagingDirectory)
+    displayName: 'Show working directories'
