@@ -1,18 +1,17 @@
-trigger: none  # Chạy thủ công
+trigger: none
 
 parameters:
-- name: batFileName
+- name: outputFileName
   type: string
-  default: hello1.bat  # Tên mặc định
+  default: output.txt
 
 pool:
-  name: Default  # Self-hosted Windows agent
+  name: Default
 
 jobs:
-- job: RunBatFile
-  displayName: 'Run .BAT file by filename input'
+- job: RunBatFileWithParam
   steps:
   - script: |
-      echo Running file: D:\${{ parameters.batFileName }}
-      cmd /c "D:\${{ parameters.batFileName }}"
-    displayName: 'Run .bat file from D:\'
+      echo Running hello.bat with output file: ${{ parameters.outputFileName }}
+      cmd /c "D:\hello.bat ${{ parameters.outputFileName }}"
+    displayName: 'Run hello.bat with output file parameter'
