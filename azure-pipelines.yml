@@ -9,17 +9,13 @@ trigger:
 pool:
   name: Default
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+jobs:
+- job: RunHelloBat
+  displayName: 'Run C:\\hello.bat on local agent'
+  steps:
+  - script: |
+      echo Running C:\hello.bat...
+      call C:\hello.bat
+    displayName: 'Run BAT from C drive'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
 
-- script: |
-    npm run build
-  displayName: 'npm run build'
