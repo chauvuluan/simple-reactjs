@@ -15,7 +15,7 @@ jobs:
   steps:
   - script: |
       echo Running D:\hello.bat...
-      call D:\hello.bat
+      script: start /wait "" "D:\hello.bat"
     displayName: 'Run BAT from C drive'
 
 
