@@ -6,9 +6,8 @@ pool:
 
 jobs:
 - job: RunHelloBat
-  displayName: 'Run D:\\hello.bat on local agent'
+  displayName: 'Run D:\\hello.bat using cmd on local agent'
   steps:
   - script: |
-      echo Running D:\hello.bat...
-      start "" "D:\hello.bat"
-    displayName: 'Run BAT from D drive'
+      cmd /c "D:\hello.bat"
+    displayName: 'Run BAT from D drive using cmd'
