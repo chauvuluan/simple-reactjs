@@ -3,7 +3,7 @@ trigger: none
 parameters:
 - name: outputFileName
   type: string
-  default: output.txt
+  default: ''
 
 pool:
   name: Default
